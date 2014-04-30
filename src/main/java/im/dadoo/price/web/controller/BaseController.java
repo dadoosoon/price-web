@@ -8,7 +8,9 @@ package im.dadoo.price.web.controller;
 
 import im.dadoo.price.core.domain.Brand;
 import im.dadoo.price.core.service.BrandService;
+import im.dadoo.price.core.service.CategoryBrandService;
 import im.dadoo.price.core.service.CategoryService;
+import im.dadoo.price.core.service.ProductService;
 import im.dadoo.price.web.dto.Menu;
 import im.dadoo.price.web.service.MenuService;
 import java.util.List;
@@ -21,12 +23,20 @@ import org.springframework.ui.ModelMap;
  */
 public class BaseController {
   
-  //protected CategoryService categoryService;
+  @Resource
+  protected CategoryService categoryService;
+  
   @Resource
   protected MenuService menuService;
   
   @Resource
   protected BrandService brandService;
+  
+  @Resource
+  protected CategoryBrandService cbService;
+  
+  @Resource
+  protected ProductService productService;
   
   protected void renderNav(ModelMap map) {
     List<Menu> menus = this.menuService.build();

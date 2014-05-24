@@ -37,7 +37,7 @@
                         <td><%= String.format("%.2f", fr.getPrice()) %></td>
                         <td><%= String.format("%.2f", fr.getMinPrice()) %>&nbsp;-&nbsp;<%= String.format("%.2f", fr.getMaxPrice()) %></td>
                         <td>
-                          <% if(fr.getStock() == 0) { %>
+                          <% if(fr.getStock() == null || fr.getStock() == 0) { %>
                             <span class="label label-default condition-label">缺货</span>
                           <% } %>
                           <% if(ObjectUtils.compare(fr.getMaxPrice(), fr.getPrice()) == 0 && ObjectUtils.compare(fr.getMaxPrice(), fr.getMinPrice()) != 0) { %>
@@ -47,12 +47,18 @@
                             <span class="label label-success condition-label">历史低价</span>
                           <% } %>
                         </td>
-                        <td><%= (System.currentTimeMillis() - fr.getDatetime()) / 1000 / 60 %>分钟前</td>
                         <td>
-                          <% if(fr.getRemark() != null) { %>
+                          <% if (fr.getDatetime() != null) { %>
+                            <%= (System.currentTimeMillis() - fr.getDatetime()) / 1000 / 60 %>分钟前
+                          <% } else { %>
+                            尚未采集
+                          <% } %>
+                        </td>
+                        <td>
+                          <% if (fr.getRemark() != null) { %>
                             <button type="button" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="left" title="<%= fr.getRemark() %>">备注</button>
                           <% } %>
-                          <% if(fr.getPromotion() != null) { %>
+                          <% if (fr.getPromotion() != null) { %>
                             <button type="button" class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="right" title="<%= fr.getPromotion() %>">促销</button>
                           <% } %>
                         </td>
